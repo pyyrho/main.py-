@@ -270,7 +270,10 @@ class ColorButton(discord.ui.Button):
         if role in inter.user.roles:
             await inter.user.remove_roles(role, reason="Nick Color: removida")
             await inter.response.send_message(
-                embed=embed_success("Cor removida", f"A cor **{role.name}** foi removida do seu perfil."),
+                embed=discord.Embed(
+    title="🚫 Cor removida",
+    description=f"A cor **{role.name}** foi removida do seu perfil.",
+    color=0xE74C3C),
                 ephemeral=True,
             )
         else:
