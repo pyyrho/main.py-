@@ -267,21 +267,26 @@ class ColorButton(discord.ui.Button):
         if roles_to_remove:
             await inter.user.remove_roles(*roles_to_remove, reason="Nick Color: troca de cor")
 
-        if role in inter.user.roles:
-            await inter.user.remove_roles(role, reason="Nick Color: removida")
-            await inter.response.send_message(
-                embed=discord.Embed(
-    title="❌️ Cor removida",
-    description=f"A cor **{role.name}** foi removida do seu perfil.",
-    color=0xE74C3C),
-                ephemeral=True,
-            )
-        else:
-            await inter.user.add_roles(role, reason="Nick Color: adicionada")
-            await inter.response.send_message(
-                embed=embed_success("Cor aplicada!", f"A cor **{role.name}** foi adicionada ao seu perfil!"),
-                ephemeral=True,
-            )
+if role in inter.user.roles:
+    await inter.user.remove_roles(role, reason="Nick Color: removida")
+    await inter.response.send_message(
+        embed=discord.Embed(
+            title="🚫 Cor removida",
+            description=f"A cor **{role.name}** foi removida do seu perfil.",
+            color=0xE74C3C,
+        ),
+        ephemeral=True,
+    )
+  
+else:
+    await inter.user.add_roles(role, reason="Nick Color: adicionada")
+    await inter.response.send_message(
+        embed=embed_success(
+            "Cor aplicada!",
+            f"A cor **{role.name}** foi adicionada ao seu perfil!"
+        ),
+        ephemeral=True,
+    )
 
 
 async def _all_role_ids_for_type(guild_id: int, key: str) -> set[int]:
